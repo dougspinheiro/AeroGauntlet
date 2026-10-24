@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AeroGauntlet</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="game-shell">
+      <div class="top-bar">
+        <span class="brand">AeroGauntlet</span>
+        <span class="tag">AIR COMBAT PROTOTYPE</span>
+      </div>
+
+      <canvas id="gameCanvas" width="960" height="600"></canvas>
+
+      <div id="hud" aria-live="polite">
+        <div class="stat"><span>Score</span><strong id="score">0</strong></div>
+        <div class="stat"><span>Health</span><strong id="health">100</strong></div>
+        <div class="stat"><span>Best</span><strong id="best">0</strong></div>
+      </div>
+
+      <div id="overlay" class="visible">
+        <div class="panel">
+          <h1>AeroGauntlet</h1>
+          <p>Defend the skies and survive the enemy assault.</p>
+          <p>Controls: WASD / Arrow Keys to move · Space to fire</p>
+          <button id="startButton">Start Mission</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
