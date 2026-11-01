@@ -118,3 +118,24 @@ esqueleto do projeto Godot vazio.
 de entrada herdado). Ele descreve a estrutura como encontrada no empacotamento
 original; a diferença entre "descrito" e "reconstruído" está documentada aqui e no
 estado atual.
+
+
+## 2026-11-01 — Primeiro voo implementável (evidenciado)
+
+**Decisão do Human:** "muito bom vamos começar a voar"
+
+**O que foi feito:**
+- **Frota:** adotada frota de 48 aeronaves (12 por era = 10 núcleo + 2 bombardeiros) em `07_ASSETS/CATALOGO_DA_FROTA.md`; removido catálogo antigo e menções ao artista; prompts individuais consolidados via template (§6).
+- **Git/Disco:** commit `6e6f2d5` (89 arquivos) enviado para `https://github.com/dougspinheiro/AeroGauntlet.git` (branch main) e cópia idêntica em `D:\AeroGauntlet\` + bundle `D:\AeroGauntlet-historico.bundle`.
+- **Godot:** 4.7.2.stable.official.ed1daf0bf encontrado em `C:/Users/Bruno/.godot/Godot_v4.7.2-stable_win64_console.exe`. Projeto importado headless sem erros.
+- **Código (primeiro voo):**
+  - Autoloads: `scripts/autoload/log.gd`, `config.gd`, `loc.gd`, `event_bus.gd` — registrados em `project.godot` na ordem `Log, Config, Loc, EventBus` (BOOTSTRAP.md atualizado).
+  - Simulação: `scripts/sim/aircraft_def.gd` (`class_name AircraftDef extends Resource`), `scripts/sim/flight_model.gd` (`class_name FlightModel`) — Euler explícito, `integrate(delta)`, `set_controls(pitch,roll,yaw,throttle)`, telemetria (airspeed, alpha, bank, altitude, load_factor, stalled).
+  - Gameplay: `scripts/aircraft.gd` (`class_name Aircraft`) lê InputMap, emite telemetria a 10 Hz por `EventBus`, reset ao tocar solo (y<1). `scripts/hud.gd` lê apenas `EventBus`, todo texto via `Loc.t()`.
+  - Dados/loc: `data/aircraft/test_trainer.tres` (treinador leve), `localization/strings.csv` (hud.speed/altitude/stall/help + units).
+  - Cena/testes: `scenes/flight_test.tscn` (WorldEnvironment+DirectionalLight3D+Ground 40000+Aircraft y=350+CockpitCamera current+HUD), `tests/flight/test_flight_model.gd` (SceneTree headless).
+- **Testes headless (evidência):** `"$GODOT" --headless --path . --script res://tests/flight/test_flight_model.gd` → 11/11 PASS, `check: 11 | falhas: 0`, exit 0. Verificações: def válido, cruzeiro estável, manete acelera, estol detectado com sustentação degradada, determinismo, sem NaN/infinito.
+
+**Estado atualizado:** `02_ESTADO/ESTADO_ATUAL.md`, `08_GAME/PROJECT/BOOTSTRAP.md`, `03_TRABALHO/TODO.md` (F-01,F-03,F-06,V-01 → FEITO), `03_TRABALHO/BLOQUEIOS.md` (B-01 parcialmente resolvido, B-05 resolvido).
+
+**Pendente:** criar/commit/push restante? Push não realizado (sem credenciais interativas) — aguarda usuário conectar GitHub ou `git push` no terminal. Copiar para `D:\AeroGauntlet\` atualizado. Teste visual em editor.

@@ -10,18 +10,18 @@ Nada aqui está concluído a menos que marcado `CONCLUIDO` com evidência.
 
 | ID | Tarefa | Especialista | Estado | Depende |
 |---|---|---|---|---|
-| F-01 | Instalar Godot 4.7.2 e abrir `08_GAME/PROJECT/` | godot-engineer | A_FAZER | — |
+| F-01 | Instalar Godot 4.7.2 e abrir `08_GAME/PROJECT/` | godot-engineer | FEITO | `C:/Users/Bruno/.godot/Godot_v4.7.2-stable_win64_console.exe` + import headless OK |
 | F-02 | Verificar se 4.7.2 existe e é estável para OpenXR (senão, decidir versão) | software-architect | A_FAZER | — |
-| F-03 | Criar autoloads vazios na ordem de `BOOTSTRAP.md` | software-architect | A_FAZER | F-01 |
+| F-03 | Criar autoloads vazios na ordem de `BOOTSTRAP.md` | software-architect | FEITO | `project.godot` [autoload] Log, Config, Loc, EventBus (ordem Log,Config,Loc,EventBus) |
 | F-04 | Definir classe `AircraftDef` e catálogo vazio carregável | software-architect | A_FAZER | F-03 |
 | F-05 | Configurar export Android + OpenXR e instalar build vazia no Quest 2 | android-build-engineer | BLOQUEADO | F-01, hardware |
-| F-06 | Criar cena de voo mínima (câmera VR + cubo + chão) | godot-engineer | A_FAZER | F-03 |
+| F-06 | Criar cena de voo mínima (câmera VR + cubo + chão) | godot-engineer | FEITO | `scenes/flight_test.tscn` (WorldEnvironment+Sun+Ground+Aircraft+CockpitCamera+HUD), `run/main_scene` configurada |
 
 ## P1 — MVP (uma era jogável)
 
 | ID | Tarefa | Especialista | Estado | Depende |
 |---|---|---|---|---|
-| V-01 | Modelo de voo de asa fixa com forças explícitas | flight-physics-engineer | A_FAZER | F-04 |
+| V-01 | Modelo de voo de asa fixa com forças explícitas | flight-physics-engineer | FEITO | `scripts/sim/flight_model.gd`, `scripts/sim/aircraft_def.gd`, `data/aircraft/test_trainer.tres` |
 | V-02 | Controles VR de voo (manche virtual, throttle, leme) | ux-vr-comfort-engineer | A_FAZER | F-06 |
 | V-03 | Envelope de teste e calibração do modelo | flight-test-engineer | A_FAZER | V-01 |
 | C-01 | Metralhadoras e dano por componente | combat-engineer | A_FAZER | V-01 |

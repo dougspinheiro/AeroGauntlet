@@ -1,0 +1,86 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/aircraft.gd" id="1_aircraft"]
+[ext_resource type="Resource" path="res://data/aircraft/test_trainer.tres" id="2_def"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="3_hud"]
+
+[sub_resource type="Environment" id="Env_1"]
+background_mode = 1
+background_color = Color(0.53, 0.7, 0.88, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.62, 0.68, 0.74, 1)
+ambient_light_energy = 0.7
+
+[sub_resource type="PlaneMesh" id="Plane_1"]
+size = Vector2(40000, 40000)
+
+[sub_resource type="StandardMaterial3D" id="Mat_1"]
+albedo_color = Color(0.34, 0.44, 0.3, 1)
+roughness = 1.0
+
+[node name="FlightTest" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env_1")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-50, -35, 0)
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("Plane_1")
+material_override = SubResource("Mat_1")
+
+[node name="Aircraft" type="Node3D" parent="."]
+position = Vector3(0, 350, 0)
+script = ExtResource("1_aircraft")
+def = ExtResource("2_def")
+start_throttle = 0.7
+start_speed_ms = 90.0
+
+[node name="CockpitCamera" type="Camera3D" parent="Aircraft"]
+position = Vector3(0, 1.05, -0.55)
+current = true
+far = 20000.0
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Overlay" type="Control" parent="HUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_hud")
+
+[node name="Speed" type="Label" parent="HUD/Overlay"]
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 280.0
+offset_bottom = 52.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+
+[node name="Altitude" type="Label" parent="HUD/Overlay"]
+offset_left = 24.0
+offset_top = 56.0
+offset_right = 280.0
+offset_bottom = 88.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+
+[node name="Stall" type="Label" parent="HUD/Overlay"]
+offset_left = 24.0
+offset_top = 96.0
+offset_right = 280.0
+offset_bottom = 128.0
+theme_override_colors/font_color = Color(1, 0.35, 0.3, 1)
+theme_override_font_sizes/font_size = 24
+
+[node name="Help" type="Label" parent="HUD/Overlay"]
+offset_left = 24.0
+offset_top = 660.0
+offset_right = 980.0
+offset_bottom = 692.0
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 0.85)
+theme_override_font_sizes/font_size = 16

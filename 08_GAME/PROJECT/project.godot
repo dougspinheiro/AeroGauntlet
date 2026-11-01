@@ -11,6 +11,15 @@ config_version=5
 config/name="AeroGauntlet"
 config/description="Simulador de combate aereo em VR (Meta Quest 2). Esqueleto."
 config/features=PackedStringArray("4.7", "Mobile")
+run/main_scene="res://scenes/flight_test.tscn"
+
+[autoload]
+
+; Ordem: Log não depende de nada e por isso vem primeiro (Config registra log no boot).
+Log="*res://scripts/autoload/log.gd"
+Config="*res://scripts/autoload/config.gd"
+Loc="*res://scripts/autoload/loc.gd"
+EventBus="*res://scripts/autoload/event_bus.gd"
 
 [display]
 

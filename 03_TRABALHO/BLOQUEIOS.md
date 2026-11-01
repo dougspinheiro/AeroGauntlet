@@ -5,11 +5,11 @@ condição de desbloqueio é decisão pendente (`DECISOES_PENDENTES.md`), não b
 
 ## B-01 — Hardware e engine indisponíveis no ambiente atual
 
-- **Impacto:** nenhuma medição de FPS, conforto ou instalação pode ser feita;
-  P-01, F-05 e qualquer validação VR ficam parados.
-- **Causa:** o ambiente de trabalho é uma VM Linux sem Godot e sem Quest 2.
-- **Desbloqueio:** estação com Godot 4.7.2 e um Quest 2 (ou acesso remoto a um),
-  com ADB habilitado e log de `adb devices` anexado.
+- **Impacto:** validação VR em Quest 2 e medição de FPS/conforto ainda parados (F-05);
+  desenvolvimento headless/editor funcional no ambiente atual.
+- **Causa:** sem Quest 2 conectado para testes VR neste momento.
+- **Estado:** PARCIALMENTE RESOLVIDO — Godot 4.7.2 encontrado em `C:/Users/Bruno/.godot/Godot_v4.7.2-stable_win64_console.exe`, projeto importado e testes headless executados.
+- **Desbloqueio:** acesso a Quest 2 com ADB habilitado para F-05/P-01.
 - **Dono:** Human.
 
 ## B-02 — Nenhum asset 3D licenciado
@@ -33,7 +33,8 @@ condição de desbloqueio é decisão pendente (`DECISOES_PENDENTES.md`), não b
 
 - **Impacto:** risco de retrabalho se 4.7.2 não for adequada a OpenXR/Quest 2.
 - **Causa:** sem editor no ambiente, não foi possível confirmar a versão.
-- **Desbloqueio:** execução de `godot --version` em ambiente com a engine.
+- **Estado:** RESOLVIDO — Godot Engine v4.7.2.stable.official.ed1daf0bf verificado via headless.
+- **Desbloqueio:** concluído.
 - **Dono:** `godot-engineer`.
 
 ## B-06 — Fichas sem bloco dimensional preenchido

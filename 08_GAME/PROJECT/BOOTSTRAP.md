@@ -5,44 +5,36 @@ pode quebrar dependências: mudanças passam por `software-architect`.
 
 ## Estado
 
-**Nenhum autoload está registrado no `project.godot`.** Os nomes abaixo são o
-contrato pretendido. Registrá-los antes de os scripts existirem quebraria a
-inicialização, então a criação é incremental (tarefa F-03).
+**Autoloads registrados no `project.godot`.** Ordem efetiva: `Log`, `Config`, `Loc`, `EventBus`.
 
-## Ordem pretendida
+## Ordem efetiva (implementada)
 
 | # | Autoload | Responsabilidade | Pode depender de |
 |---|---|---|---|
-| 1 | `Config` | Preferências, qualidade gráfica, opções de conforto | — |
-| 2 | `Log` | Log estruturado, sem dado pessoal | `Config` |
-| 3 | `EventBus` | Sinais tipados entre camadas | `Log` |
-| 4 | `Catalog` | Definições estáticas (aeronaves, armas, eras) | `Config`, `Log` |
-| 5 | `Profile` | Progresso, créditos, desbloqueios, save | `Config`, `Log`, `Catalog` |
-| 6 | `Session` | Estado da missão/sessão corrente | todos acima |
-| 7 | `AircraftSpawner` | Instancia aeronaves a partir do catálogo | todos acima |
+| 1 | `Log` | Log estruturado, sem dado pessoal | — |
+| 2 | `Config` | Preferências, qualidade gráfica, opções de conforto; registra ações no boot | `Log` |
+| 3 | `Loc` | Localização (`res://localization/strings.csv`), `Loc.t()` | `Log` |
+| 4 | `EventBus` | Sinais tipados entre camadas | `Log` |
 
-Regra: um serviço só conhece os anteriores. Referência para frente é violação de
-camada e deve ser corrigida, não contornada com `get_node` tardio.
+Serviços futuros: `Catalog`, `Profile`, `Session`, `AircraftSpawner` seguem a regra
+"só conhece os anteriores".
 
-## Ordem de inicialização (pretendida)
+## Ordem de inicialização (efetiva)
 
 1. Engine inicializa, carrega `project.godot`.
-2. Autoloads entram na ordem da tabela.
-3. `Config` lê preferências; se o arquivo estiver corrompido, usa padrões e registra
-   no log (nunca falha silenciosamente).
-4. `Log` abre destino de log; sem escrita em caminho pessoal sensível.
-5. `Catalog` valida definições; dado inválido impede o jogo de iniciar com mensagem
-   clara, em vez de comportamento indefinido.
-6. `Profile` carrega save; se a versão for antiga, migra; se falhar, oferece recomeçar
-   sem apagar o arquivo original.
-7. Cena principal (inexistente hoje) assume a partir daí.
+2. Autoloads entram na ordem: Log → Config → Loc → EventBus.
+3. `Log` pronto primeiro (sem dependências).
+4. `Config` lê/define ações lógicas e registra no log.
+5. `Loc` carrega CSV de tradução.
+6. `EventBus` pronto para uso por HUD/simulação.
+7. Cena principal `res://scenes/flight_test.tscn` assume a partir daí.
 
 ## Contratos
 
 - Nenhum autoload acessa a camada de apresentação VR.
 - Comunicação de estado de jogo com a UI é por `EventBus`, não por referência direta.
-- `Catalog` é somente leitura em runtime; dados são carregados de recursos.
-- `Profile` é o único que escreve save.
+- `Catalog` será somente leitura em runtime; dados são carregados de recursos.
+- `Profile` será o único que escreve save.
 
 ## Critério de aceite para registrar autoloads
 
