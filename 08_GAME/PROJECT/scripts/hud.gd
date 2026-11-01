@@ -6,6 +6,7 @@ extends Control
 @onready var _altitude_label: Label = $Altitude
 @onready var _stall_label: Label = $Stall
 @onready var _help_label: Label = $Help
+@onready var _throttle_label: Label = $Throttle
 
 const MPS_TO_KNOTS := 1.94384
 const M_TO_FEET := 3.28084
@@ -14,6 +15,7 @@ const M_TO_FEET := 3.28084
 func _ready() -> void:
 	_stall_label.visible = false
 	_help_label.text = Loc.t("hud.help")
+	_throttle_label.text = "%s %d%%" % [Loc.t("hud.throttle"), 0]
 	EventBus.telemetry_updated.connect(_on_telemetry_updated)
 	EventBus.aircraft_stalled.connect(_on_aircraft_stalled)
 
@@ -21,8 +23,10 @@ func _ready() -> void:
 func _on_telemetry_updated(data: Dictionary) -> void:
 	var knots: float = float(data.get("airspeed_ms", 0.0)) * MPS_TO_KNOTS
 	var feet: float = float(data.get("altitude_m", 0.0)) * M_TO_FEET
+	var throttle: float = float(data.get("throttle", 0.0))
 	_speed_label.text = "%s %d %s" % [Loc.t("hud.speed"), roundi(knots), Loc.t("unit.knots")]
 	_altitude_label.text = "%s %d %s" % [Loc.t("hud.altitude"), roundi(feet), Loc.t("unit.feet")]
+	_throttle_label.text = "%s %d%%" % [Loc.t("hud.throttle"), roundi(throttle * 100.0)]
 
 
 func _on_aircraft_stalled(is_stalled: bool) -> void:
