@@ -139,3 +139,10 @@ estado atual.
 **Estado atualizado:** `02_ESTADO/ESTADO_ATUAL.md`, `08_GAME/PROJECT/BOOTSTRAP.md`, `03_TRABALHO/TODO.md` (F-01,F-03,F-06,V-01 → FEITO), `03_TRABALHO/BLOQUEIOS.md` (B-01 parcialmente resolvido, B-05 resolvido).
 
 **Pendente:** criar/commit/push restante? Push não realizado (sem credenciais interativas) — aguarda usuário conectar GitHub ou `git push` no terminal. Copiar para `D:\AeroGauntlet\` atualizado. Teste visual em editor.
+### 2026-11-01 — HUD com indicador de manete
+- Inspirado nas referências em F:\ (visão de HUD em versões complexas).
+- Adicionado `hud.throttle` em `localization/strings.csv` (EN/PT-BR).
+- HUD atualizado para exibir manete via telemetria do EventBus, texto via `Loc.t()`.
+- Cena `scenes/flight_test.tscn` atualizada com label `Throttle`.
+- Testes headless: `tests/flight/test_flight_model.gd` → 11/11 PASS (exit 0).
+- Commit `8d4e2e9`, push para `origin/main`. Sincronizado para `D:\AeroGauntlet\`.
