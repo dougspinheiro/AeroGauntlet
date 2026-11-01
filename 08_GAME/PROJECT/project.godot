@@ -1,0 +1,30 @@
+; AeroGauntlet — esqueleto do projeto Godot
+;
+; ATENÇÃO: este arquivo é um esqueleto mínimo, nunca aberto em editor nem validado.
+; A versão alvo declarada é Godot 4.7.2, não verificada no ambiente de reconstrução.
+; Nenhum autoload, cena ou recurso está registrado aqui ainda — ver BOOTSTRAP.md.
+
+config_version=5
+
+[application]
+
+config/name="AeroGauntlet"
+config/description="Simulador de combate aereo em VR (Meta Quest 2). Esqueleto."
+config/features=PackedStringArray("4.7", "Mobile")
+
+[display]
+
+window/handheld/orientation=1
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
+[rendering]
+
+renderer/rendering_method="mobile"
+renderer/rendering_method.mobile="mobile"
+textures/vram_compression/import_etc2_astc=true
+
+[physics]
+
+common/physics_ticks_per_second=72
+3d/default_gravity=9.81

@@ -6,7 +6,7 @@
 
 ## 1. Visão geral e estado atual
 
-AeroGauntlet é planejado como um simulador de combate aéreo em realidade virtual. A configuração documental aponta Godot 4.7.2 como engine, Meta Quest 2 como dispositivo-alvo independente e 72 FPS como meta sustentada, com orçamento operacional aproximado de 10–11 ms por quadro. O escopo histórico tem exatamente quatro eras: WW1, WW2, Guerra Fria e Moderna. O catálogo-alvo contém 48 aeronaves, com fonte em manilov.ap: 12 por era, sendo 10 núcleo e 2 bombardeiros. O modelo comercial previsto é compra única; aeronaves e conteúdos elegíveis são desbloqueados com créditos obtidos jogando, sem pay-to-win.
+AeroGauntlet é planejado como um simulador de combate aéreo em realidade virtual. A configuração documental aponta Godot 4.7.2 como engine, Meta Quest 2 como dispositivo-alvo independente e 72 FPS como meta sustentada, com orçamento operacional aproximado de 10–11 ms por quadro. O escopo histórico tem exatamente quatro eras: WW1, WW2, Guerra Fria e Moderna. O catálogo-alvo contém 48 aeronaves escolhidas pelo projeto, cada uma com ficha visual individual: 12 por era, sendo 10 núcleo e 2 bombardeiros. O modelo comercial previsto é compra única; aeronaves e conteúdos elegíveis são desbloqueados com créditos obtidos jogando, sem pay-to-win.
 
 O workspace é principalmente uma base de governança, especificação, planejamento, conhecimento, pipeline de assets, testes e distribuição. A presença de documentação não significa que o sistema descrito já esteja implementado. O README estabelece que nenhum subsistema deve ser considerado validado sem evidência executável; o projeto Godot é um esqueleto documental com diretórios de assets, scripts e testes, e arquivos `.gitkeep`, não uma build de jogo completa.
 
@@ -77,7 +77,7 @@ Contém diretrizes especializadas que complementam o documento mestre. As orient
 ### `07_ASSETS/` — catálogo e ingestão de conteúdo 3D
 
 - **`LEIAME.md`** — explica a finalidade da área de assets e suas regras de organização.
-- **`CATALOGO_MANILOV.md`** — catálogo-alvo das 48 aeronaves associadas à fonte manilov.ap. Serve para controlar identidade, era, classe, estado de ingestão, observações e requisitos por aeronave. A existência de uma linha de catálogo não prova que o modelo foi adquirido, licenciado, importado, otimizado ou validado.
+- **`CATALOGO_DA_FROTA.md`** — catálogo-alvo das 48 aeronaves: ficha visual individual, bloco dimensional obrigatório, gate de aprovação e painel de estado por aeronave. A existência de uma linha de catálogo não prova que o modelo foi adquirido, licenciado, importado, otimizado ou validado.
 - **`PIPELINE_DE_INGESTAO.md`** — descreve o ciclo de vida do asset: seleção e verificação de origem/direitos, recebimento, inspeção, conversão/importação, otimização, testes e aceitação. A ingestão não deve ser contornada; cada ativo precisa de estado e evidência apropriados.
 
 ### `08_GAME/` — área do projeto do jogo
