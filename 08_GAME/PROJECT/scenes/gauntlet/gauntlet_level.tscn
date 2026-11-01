@@ -1,0 +1,134 @@
+[gd_scene load_steps=10 format=3 uid="uid://gauntlet_level"]
+
+[ext_resource type="Script" path="res://scripts/gauntlet/gauntlet_manager.gd" id="1_mgr"]
+[ext_resource type="PackedScene" uid="uid://gauntlet_gate" path="res://scenes/gauntlet/gate.tscn" id="2_gate"]
+[ext_resource type="Script" path="res://scripts/aircraft.gd" id="3_aircraft"]
+[ext_resource type="Resource" path="res://data/aircraft/test_trainer.tres" id="4_def"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="5_hud"]
+
+[sub_resource type="Environment" id="Env_1"]
+background_mode = 1
+background_color = Color(0.53, 0.7, 0.88, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.62, 0.68, 0.74, 1)
+ambient_light_energy = 0.7
+
+[sub_resource type="PlaneMesh" id="Plane_1"]
+size = Vector2(40000, 40000)
+
+[sub_resource type="StandardMaterial3D" id="Mat_1"]
+albedo_color = Color(0.34, 0.44, 0.3, 1)
+roughness = 1.0
+
+[sub_resource type="Label3D" id="Label3D_timer"]
+billboard = 1
+text = "0.00"
+font_size = 128
+outline_size = 32
+
+[node name="GauntletLevel" type="Node3D"]
+script = ExtResource("1_mgr")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env_1")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-50, -35, 0)
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("Plane_1")
+material_override = SubResource("Mat_1")
+
+[node name="Aircraft" type="Node3D" parent="." groups=["player"]]
+position = Vector3(0, 350, 0)
+script = ExtResource("3_aircraft")
+def = ExtResource("4_def")
+start_throttle = 0.7
+start_speed_ms = 90.0
+
+[node name="CockpitCamera" type="Camera3D" parent="Aircraft"]
+position = Vector3(0, 1.05, -0.55)
+current = true
+far = 20000.0
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Overlay" type="Control" parent="HUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("5_hud")
+
+[node name="Speed" type="Label" parent="HUD/Overlay"]
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 280.0
+offset_bottom = 52.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+
+[node name="Altitude" type="Label" parent="HUD/Overlay"]
+offset_left = 24.0
+offset_top = 56.0
+offset_right = 280.0
+offset_bottom = 88.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+
+[node name="Stall" type="Label" parent="HUD/Overlay"]
+offset_left = 24.0
+offset_top = 96.0
+offset_right = 280.0
+offset_bottom = 128.0
+theme_override_colors/font_color = Color(1, 0.35, 0.3, 1)
+theme_override_font_sizes/font_size = 24
+
+[node name="Help" type="Label" parent="HUD/Overlay"]
+offset_left = 24.0
+offset_top = 680.0
+offset_right = 1200.0
+offset_bottom = 712.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.8)
+theme_override_font_sizes/font_size = 18
+
+[node name="Throttle" type="Label" parent="HUD/Overlay"]
+offset_left = 24.0
+offset_top = 132.0
+offset_right = 280.0
+offset_bottom = 164.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+
+[node name="Gates" type="Node3D" parent="."]
+
+[node name="Gate0" parent="Gates" instance=ExtResource("2_gate")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 400, -500)
+gate_id = 0
+
+[node name="Gate1" parent="Gates" instance=ExtResource("2_gate")]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -400, 450, -1000)
+gate_id = 1
+
+[node name="Gate2" parent="Gates" instance=ExtResource("2_gate")]
+transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, -800, 420, -1400)
+gate_id = 2
+
+[node name="Gate3" parent="Gates" instance=ExtResource("2_gate")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -1100, 480, -1900)
+gate_id = 3
+
+[node name="Gate4" parent="Gates" instance=ExtResource("2_gate")]
+transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, -800, 520, -2400)
+gate_id = 4
+
+[node name="TimerDisplay" type="CanvasLayer" parent="."]
+
+[node name="Timer" type="Label3D" parent="TimerDisplay"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 800, -200)
+billboard = 1
+text = "0.00"
+font_size = 256
+outline_size = 48
