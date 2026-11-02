@@ -11,7 +11,7 @@ config_version=5
 config/name="AeroGauntlet"
 config/description="Simulador de combate aereo em VR (Meta Quest 2). Esqueleto."
 config/features=PackedStringArray("4.7", "Mobile")
-run/main_scene="res://scenes/gauntlet/gauntlet_level.tscn"
+run/main_scene="res://scenes/flight_test.tscn"
 
 [autoload]
 
